@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bói Tình Duyên Lãng Mạn</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #ffbfd3 0%, #ff8fb2 30%, #ff6f91 60%, #3b003b 100%);
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      padding: 30px 10px;
+    }
+
+    .app-container {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 24px 26px 30px;
+    }
+
+    .app-header {
+      text-align: center;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .app-header h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .app-header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .heart-emoji {
+      font-size: 26px;
+      margin: 0 4px;
+    }
+
+    .app-header::after {
+      content: "💕🐱🐻🐰💘";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin: 16px 0 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title span {
+      font-size: 20px;
+    }
+
+    .input-section {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 16px 14px 18px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(255,255,255,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%);
+      opacity: 0.65;
+    }
+
+    .gender-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .gender-label span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gender-icon {
+      font-size: 20px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    label {
+      font-size: 12px;
+      opacity: 0.85;
+      margin-left: 2px;
+    }
+
+    input, select, textarea {
+      margin-top: 2px;
+      border-radius: 999px;
+      border: none;
+      padding: 7px 11px;
+      font-size: 13px;
+      outline: none;
+      color: #2c0a23;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    textarea {
+      min-height: 50px;
+      resize: vertical;
+      border-radius: 16px;
+      padding-top: 7px;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(123, 90, 118, 0.9);
+      font-size: 12px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4e8a, #ff7aa2);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(255, 78, 138, 0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255, 78, 138, 0.65);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .results-section {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 12px;
+    }
+
+    .compatibility-card,
+    .suggestions-card {
+      background: rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 12px 13px 14px;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .compatibility-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .circle-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+    }
+
+    .compat-circle-bg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #ffafc7, #ff2f6a);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.7), 0 10px 20px rgba(0,0,0,0.35);
+    }
+
+    .compat-circle-overlay {
+      position: absolute;
+      inset: 0;
+      background: conic-gradient(#ff174d var(--percent), #1b001b var(--percent));
+    }
+
+    .compat-percent-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    }
+
+    .compat-percent-text span {
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .compat-percent-text small {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .compat-label {
+      margin-top: 6px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .pet-line {
+      margin-top: 4px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .pet-emoji {
+      font-size: 22px;
+      margin-right: 4px;
+    }
+
+    .compat-details {
+      flex: 1;
+      font-size: 13px;
+    }
+
+    .compat-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .compat-tag span {
+      font-size: 15px;
+    }
+
+    .compat-note {
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: 0.96;
+    }
+
+    .suggestions-card ul {
+      list-style: none;
+      margin-top: 4px;
+      max-height: 160px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .suggestions-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .bullet-heart {
+      font-size: 13px;
+      margin-top: 1px;
+    }
+
+    .footer-blessing {
+      margin-top: 12px;
+      background: rgba(255,255,255,0.16);
+      border-radius: 16px;
+      padding: 9px 12px;
+      font-size: 13px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .footer-blessing span {
+      font-size: 16px;
+      margin-right: 4px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .results-section {
+        grid-template-columns: 1fr;
+      }
+      .compatibility-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+      .app-container {
+        padding: 18px 15px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>
+        <span class="heart-emoji">💖</span>
+        Bói Tình Duyên Lãng Mạn
+        <span class="heart-emoji">💘</span>
+      </h1>
+      <p>Điền thông tin của bạn và người ấy để khám phá mức độ hợp nhau và bí kíp giữ lửa tình yêu.</p>
+    </header>
+
+    <section class="input-section">
+      <div class="section-title">
+        <span>💌</span> Thông tin hai bạn
+      </div>
+
+      <div class="two-columns">
+        <!-- BÊN NAM -->
+        <div class="card">
+          <div class="gender-label">
+            <span><span class="gender-icon">👦</span> Thông tin anh ấy</span>
+            <span>Nam</span>
+          </div>
+
+          <div class="field-group">
+            <label for="male-name">Tên</label>
+            <input id="male-name" type="text" placeholder="Ví dụ: Minh, Hoàng, Nam...">
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="male-dob">Ngày sinh (dd/mm/yyyy)</label>
+              <input id="male-dob" type="text" placeholder="01/01/2000">
+            </div>
+            <div class="field-group">
+              <label for="male-time">Giờ sinh (x giờ)</label>
+              <input id="male-time" type="text" placeholder="10 giờ">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="male-place">Nơi sinh</label>
+            <input id="male-place" type="text" placeholder="Hà Nội, Sài Gòn...">
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="male-element">Mệnh ngũ hành</label>
+              <select id="male-element">
+                <option value="">Chọn mệnh</option>
+                <option>Kim</option>
+                <option>Mộc</option>
+                <option>Thủy</option>
+                <option>Hỏa</option>
+                <option>Thổ</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="male-blood">Nhóm máu</label>
+              <select id="male-blood">
+                <option value="">Chọn nhóm máu</option>
+                <option>A</option>
+                <option>B</option>
+                <option>AB</option>
+                <option>O</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="male-hobby">Sở thích cá nhân</label>
+            <textarea id="male-hobby" placeholder="Ví dụ: xem phim, chơi game, đá bóng, du lịch..."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="male-relationship">Đặc điểm trong một mối quan hệ</label>
+            <textarea id="male-relationship" placeholder="Ví dụ: chu đáo, hơi ít nói, thích lắng nghe..."></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="male-zodiac">Cung hoàng đạo</label>
+              <select id="male-zodiac">
+                <option value="">Chọn cung</option>
+                <option>Ma Kết</option>
+                <option>Bảo Bình</option>
+                <option>Song Ngư</option>
+                <option>Bạch Dương</option>
+                <option>Kim Ngưu</option>
+                <option>Song Tử</option>
+                <option>Cự Giải</option>
+                <option>Sư Tử</option>
+                <option>Xử Nữ</option>
+                <option>Thiên Bình</option>
+                <option>Bọ Cạp</option>
+                <option>Nhân Mã</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="male-color">Màu sắc yêu thích</label>
+              <select id="male-color">
+                <option value="">Chọn màu</option>
+                <option>Đỏ</option>
+                <option>Hồng</option>
+                <option>Trắng</option>
+                <option>Đen</option>
+                <option>Xanh dương</option>
+                <option>Xanh lá</option>
+                <option>Vàng</option>
+                <option>Tím</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="male-food">Đồ ăn yêu thích</label>
+              <input id="male-food" type="text" placeholder="Ví dụ: lẩu, gà rán, sushi...">
+            </div>
+            <div class="field-group">
+              <label for="male-drink">Đồ uống yêu thích</label>
+              <input id="male-drink" type="text" placeholder="Ví dụ: trà sữa, cà phê, nước cam...">
+            </div>
+          </div>
+        </div>
+
+        <!-- BÊN NỮ -->
+        <div class="card">
+          <div class="gender-label">
+            <span><span class="gender-icon">👧</span> Thông tin cô ấy</span>
+            <span>Nữ</span>
+          </div>
+
+          <div class="field-group">
+            <label for="female-name">Tên</label>
+            <input id="female-name" type="text" placeholder="Ví dụ: Linh, Trang, Thảo...">
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="female-dob">Ngày sinh (dd/mm/yyyy)</label>
+              <input id="female-dob" type="text" placeholder="14/02/2001">
+            </div>
+            <div class="field-group">
+              <label for="female-time">Giờ sinh (x giờ)</label>
+              <input id="female-time" type="text" placeholder="22 giờ">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="female-place">Nơi sinh</label>
+            <input id="female-place" type="text" placeholder="Đà Nẵng, Hải Phòng...">
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="female-element">Mệnh ngũ hành</label>
+              <select id="female-element">
+                <option value="">Chọn mệnh</option>
+                <option>Kim</option>
+                <option>Mộc</option>
+                <option>Thủy</option>
+                <option>Hỏa</option>
+                <option>Thổ</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="female-blood">Nhóm máu</label>
+              <select id="female-blood">
+                <option value="">Chọn nhóm máu</option>
+                <option>A</option>
+                <option>B</option>
+                <option>AB</option>
+                <option>O</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="female-hobby">Sở thích cá nhân</label>
+            <textarea id="female-hobby" placeholder="Ví dụ: đọc sách, nấu ăn, chụp ảnh..."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="female-relationship">Đặc điểm trong một mối quan hệ</label>
+            <textarea id="female-relationship" placeholder="Ví dụ: tình cảm, thẳng thắn, hay quan tâm..."></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="female-zodiac">Cung hoàng đạo</label>
+              <select id="female-zodiac">
+                <option value="">Chọn cung</option>
+                <option>Ma Kết</option>
+                <option>Bảo Bình</option>
+                <option>Song Ngư</option>
+                <option>Bạch Dương</option>
+                <option>Kim Ngưu</option>
+                <option>Song Tử</option>
+                <option>Cự Giải</option>
+                <option>Sư Tử</option>
+                <option>Xử Nữ</option>
+                <option>Thiên Bình</option>
+                <option>Bọ Cạp</option>
+                <option>Nhân Mã</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="female-color">Màu sắc yêu thích</label>
+              <select id="female-color">
+                <option value="">Chọn màu</option>
+                <option>Đỏ</option>
+                <option>Hồng</option>
+                <option>Trắng</option>
+                <option>Đen</option>
+                <option>Xanh dương</option>
+                <option>Xanh lá</option>
+                <option>Vàng</option>
+                <option>Tím</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="female-food">Đồ ăn yêu thích</label>
+              <input id="female-food" type="text" placeholder="Ví dụ: đồ ngọt, bún, phở...">
+            </div>
+            <div class="field-group">
+              <label for="female-drink">Đồ uống yêu thích</label>
+              <input id="female-drink" type="text" placeholder="Ví dụ: trà đào, sinh tố, matcha...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="calc-btn">
+          🔮 Xem độ hợp nhau
+        </button>
+        <button class="btn btn-secondary" id="reset-btn">
+          ♻️ Chơi lại
+        </button>
+      </div>
+    </section>
+
+    <section id="results-wrapper" class="hidden">
+      <div class="section-title">
+        <span>💑</span> Kết quả bói tình duyên
+      </div>
+
+      <div class="results-section">
+        <!-- PHẦN 1: TỈ LỆ HỢP NHAU -->
+        <div class="compatibility-card">
+          <div class="compatibility-inner">
+            <div>
+              <div class="circle-wrapper">
+                <div class="compat-circle-bg">
+                  <div class="compat-circle-overlay" id="compat-circle" style="--percent:80%;"></div>
+                  <div class="compat-percent-text">
+                    <span id="percent-text">80%</span>
+                    <small>mức độ hòa hợp</small>
+                  </div>
+                </div>
+              </div>
+              <div class="compat-label" id="compat-label-text">
+                Hai bạn là cặp đôi rất ăn ý 💞
+              </div>
+              <div class="pet-line" id="pet-line-text">
+                <span class="pet-emoji">🐱</span>
+                Năng lượng đáng yêu như một cặp mèo lười ôm nhau cả ngày.
+              </div>
+            </div>
+
+            <div class="compat-details">
+              <div class="compat-tag" id="compat-tag">
+                <span>💍</span>
+                <span id="compat-type">Duyên vợ chồng</span>
+              </div>
+              <div class="compat-note" id="compat-note">
+                Cả hai có rất nhiều điểm bổ trợ cho nhau. Nếu biết lắng nghe, chia sẻ cảm xúc thật lòng
+                và tránh để đối phương phải đoán suy nghĩ quá nhiều, mối quan hệ này rất dễ tiến xa và bền vững.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHẦN 2: GỢI Ý HÀNH ĐỘNG -->
+        <div class="suggestions-card">
+          <div class="section-title" style="margin-top:0;">
+            <span>📋</span> Gợi ý để hai bạn bền chặt hơn
+          </div>
+          <ul id="suggestion-list">
+            <!-- JS sẽ thêm nội dung -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- LỜI CHÚC CUỐI -->
+      <div class="footer-blessing" id="blessing-text">
+        <span>🌟</span>
+        Chúc hai bạn luôn giữ được những cảm xúc ban đầu dành cho nhau, cùng nắm tay đi qua nhiều mùa thương nhớ.
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Một số data mẫu để random cho vui
+    const petLines = [
+      "🐱 Năng lượng đáng yêu như một cặp mèo lười ôm nhau cả ngày.",
+      "🐶 Ấm áp và trung thành như một chú cún con luôn quấn quýt bên chủ.",
+      "🐻 Vững chãi như một cặp gấu nhỏ dựa lưng vào nhau giữa mùa đông lạnh.",
+      "🐰 Ngọt ngào, nhí nhảnh như đôi thỏ con chạy nhảy trong vườn hoa.",
+      "🐼 Dễ thương và bình yên như một cặp gấu trúc nằm ôm nhau ngủ trưa."
+    ];
+
+    const compatTypes = [
+      "Tri kỉ",
+      "Người yêu lý tưởng",
+      "Duyên vợ chồng",
+      "Cặp đôi gắn bó",
+      "Người bạn thân thiết"
+    ];
+
+    const compatLabels = [
+      "Hai bạn là mảnh ghép rất tự nhiên của nhau.",
+      "Cặp đôi này mà đi đâu cùng nhau thì auto tỏa sáng.",
+      "Sự ăn ý giữa hai bạn khiến người khác chỉ biết ghen tị.",
+      "Có chút khác biệt nhưng bù trừ vừa đủ để luôn hấp dẫn nhau.",
+      "Nếu tiếp tục vun đắp, đây rất dễ trở thành mối quan hệ lâu dài."
+    ];
+
+    const blessings = [
+      "Chúc hai bạn luôn đủ dịu dàng để lắng nghe và đủ chân thành để nắm tay nhau thật chặt.",
+      "Chúc mối quan hệ của hai bạn ngày một bền chặt, nhẹ nhàng mà sâu sắc, bình yên mà nồng nhiệt.",
+      "Hy vọng hai bạn sẽ trở thành chốn bình yên của nhau sau mỗi ngày dài mệt mỏi.",
+      "Chúc hai trái tim luôn chung nhịp, cùng nhau đi qua nhiều mùa thanh xuân thật đẹp.",
+      "Mong rằng mỗi lần nhìn nhau, hai bạn đều thấy may mắn vì đã chọn nhau giữa cả thế giới.",
+      "Chúc tình yêu của hai bạn luôn đủ tin tưởng, đủ thấu hiểu và đủ dũng cảm để đi cùng nhau thật lâu.",
+      "Hy vọng mỗi khoảnh khắc bên nhau đều trở thành kỷ niệm ngọt ngào khó quên.",
+      "Chúc cho những giận dỗi sẽ nhanh chóng hóa thành cớ để hiểu nhau nhiều hơn."
+    ];
+
+    const genericSuggestions = [
+      "Dành thời gian nói chuyện mỗi ngày, kể cả những điều nhỏ nhặt trong cuộc sống.",
+      "Thẳng thắn chia sẻ cảm xúc thay vì chờ đối phương phải tự đoán.",
+      "Thi thoảng viết một vài dòng dễ thương hoặc nhắn một tin bất ngờ để người kia cảm nhận được sự quan tâm.",
+      "Khi có khúc mắc, ưu tiên ngồi lại nói chuyện nhẹ nhàng thay vì im lặng né tránh.",
+      "Tạo những thói quen chung như cùng xem một bộ phim, nghe chung một playlist hoặc đi dạo mỗi tuần.",
+      "Tôn trọng khoảng không gian riêng của nhau, để mỗi người vẫn được là chính mình."
+    ];
+
+    function randomInRange(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Luôn giữ tỉ lệ > 70%
+    function generateCompatibilityPercent() {
+      return randomInRange(72, 98);
+    }
+
+    function buildSuggestions(data) {
+      const list = [];
+
+      const { maleName, femaleName, maleHobby, femaleHobby, maleFood, femaleFood, maleDrink, femaleDrink } = data;
+
+      if (maleHobby || femaleHobby) {
+        list.push(`Cùng nhau dành một buổi hẹn hò theo sở thích của cả hai, xen kẽ: có buổi ưu tiên sở thích của ${maleName || "người ấy"}, có buổi ưu tiên sở thích của ${femaleName || "bạn"}.`);
+      }
+
+      if (maleFood || femaleFood) {
+        list.push(`Lập một “list quán ruột” với những món hai bạn thích như ${maleFood || "món anh ấy thích"} và ${femaleFood || "món cô ấy thích"}, rồi mỗi tuần cùng tick dần từng quán.`);
+      }
+
+      if (maleDrink || femaleDrink) {
+        list.push(`Thử hẹn hò ở một quán nước mới, gọi món yêu thích của nhau: ${maleDrink || "đồ uống anh ấy thích"} và ${femaleDrink || "đồ uống cô ấy thích"}.`);
+      }
+
+      list.push(
+        "Thỉnh thoảng dành riêng một buổi chỉ để lắng nghe người kia chia sẻ về áp lực, lo lắng, suy nghĩ của họ.",
+        "Thay vì trách móc, hãy nói với nhau bằng ngôn ngữ: “Mình cảm thấy...” để đối phương không bị tổn thương.",
+        "Giữ cho nhau những bất ngờ nhỏ: một lời khen, một tấm ảnh kỷ niệm in ra, hay một buổi hẹn không báo trước.",
+        "Đặt ra vài nguyên tắc chung như: không bỏ ngủ khi còn giận nhau, tôn trọng sự khác biệt, và nói lời xin lỗi khi cần."
+      );
+
+      const merged = [...genericSuggestions, ...list];
+
+      return merged.slice(0, 8);
+    }
+
+    function analyzeRelationship(data, percent) {
+      let type = compatTypes[randomInRange(0, compatTypes.length - 1)];
+      let label = compatLabels[randomInRange(0, compatLabels.length - 1)];
+      let note = "";
+
+      const { maleName, femaleName, maleZodiac, femaleZodiac, maleColor, femaleColor } = data;
+
+      const nameText =
+        maleName && femaleName
+          ? `${maleName} và ${femaleName}`
+          : "Hai bạn";
+
+      if (percent >= 90) {
+        type = "Duyên vợ chồng";
+        label = "Sợi dây kết nối giữa hai bạn cực kỳ bền chặt.";
+        note = `${nameText} có mức độ hòa hợp rất cao. Chỉ cần cùng nhau giữ sự tôn trọng, tin tưởng và không ngại bày tỏ suy nghĩ, đây là kiểu mối quan hệ rất dễ đi tới những cột mốc quan trọng.`;
+      } else if (percent >= 85) {
+        type = "Người yêu lý tưởng";
+        label = "Cảm xúc tự nhiên, nhẹ nhàng nhưng không kém phần mãnh liệt.";
+        note = `${nameText} là kiểu cặp đôi có rất nhiều điểm chung. Đôi khi khác biệt nhỏ chính là gia vị giúp hai bạn không nhàm chán — miễn là luôn nói chuyện với nhau bằng sự chân thành.`;
+      } else if (percent >= 80) {
+        type = "Cặp đôi gắn bó";
+        label = "Có nền tảng tốt để đi cùng nhau lâu dài.";
+        note = `${nameText} có sự hòa hợp đủ để thấu hiểu, đủ khác biệt để hấp dẫn. Chỉ cần chịu khó đặt mình vào vị trí của người kia, mối quan hệ sẽ ngày càng vững chắc.`;
+      } else {
+        type = "Tri kỉ";
+        label = "Sự đồng điệu cảm xúc rất tự nhiên.";
+        note = `${nameText} dễ chia sẻ được với nhau những câu chuyện mà không phải ai cũng hiểu. Giữ vững sự chân thành và tinh tế, cả hai sẽ là chỗ dựa đáng tin cậy cho nhau.`;
+      }
+
+      if (maleZodiac && femaleZodiac) {
+        note += `\n\nVề cung hoàng đạo, ${maleZodiac} và ${femaleZodiac} thường tạo nên những câu chuyện rất thú vị nếu biết tôn trọng cá tính riêng của nhau.`;
+      }
+
+      if (maleColor && femaleColor && maleColor === femaleColor) {
+        note += `\n\nHai bạn còn cùng thích màu ${maleColor.toLowerCase()}, điều này cho thấy gu thẩm mỹ và cảm xúc cũng có nhiều điểm tương đồng.`;
+      }
+
+      return { type, label, note };
+    }
+
+    function getFormData() {
+      const getVal = id => document.getElementById(id).value.trim();
+
+      return {
+        maleName: getVal("male-name"),
+        femaleName: getVal("female-name"),
+        maleHobby: getVal("male-hobby"),
+        femaleHobby: getVal("female-hobby"),
+        maleFood: getVal("male-food"),
+        femaleFood: getVal("female-food"),
+        maleDrink: getVal("male-drink"),
+        femaleDrink: getVal("female-drink"),
+        maleZodiac: getVal("male-zodiac"),
+        femaleZodiac: getVal("female-zodiac"),
+        maleColor: getVal("male-color"),
+        femaleColor: getVal("female-color")
+      };
+    }
+
+    function updateUI() {
+      const data = getFormData();
+      const percent = generateCompatibilityPercent();
+
+      // Cập nhật vòng tròn
+      const circle = document.getElementById("compat-circle");
+      circle.style.setProperty("--percent", percent + "%");
+      document.getElementById("percent-text").textContent = percent + "%";
+
+      // Phân tích mối quan hệ
+      const analysis = analyzeRelationship(data, percent);
+      document.getElementById("compat-type").textContent = analysis.type;
+      document.getElementById("compat-label-text").textContent = analysis.label;
+      document.getElementById("compat-note").textContent = analysis.note;
+
+      // Pet đáng yêu
+      const petLine = petLines[randomInRange(0, petLines.length - 1)];
+      document.getElementById("pet-line-text").innerHTML = petLine;
+
+      // Gợi ý hành động
+      const suggestions = buildSuggestions(data);
+      const ul = document.getElementById("suggestion-list");
+      ul.innerHTML = "";
+      suggestions.forEach(text => {
+        const li = document.createElement("li");
+        const icon = document.createElement("span");
+        icon.className = "bullet-heart";
+        icon.textContent = "💗";
+        const span = document.createElement("span");
+        span.textContent = text;
+        li.appendChild(icon);
+        li.appendChild(span);
+        ul.appendChild(li);
+      });
+
+      // Lời chúc
+      const blessing = blessings[randomInRange(0, blessings.length - 1)];
+      document.getElementById("blessing-text").innerHTML = `<span>🌟</span> ${blessing}`;
+
+      // Hiện phần kết quả
+      document.getElementById("results-wrapper").classList.remove("hidden");
+    }
+
+    document.getElementById("calc-btn").addEventListener("click", function () {
+      updateUI();
+    });
+
+    document.getElementById("reset-btn").addEventListener("click", function () {
+      // Reset tất cả input
+      document.querySelectorAll("input, textarea, select").forEach(el => {
+        el.value = "";
+      });
+      // Ẩn kết quả
+      document.getElementById("results-wrapper").classList.add("hidden");
+    });
+  </script>
+</body>
+</html>
